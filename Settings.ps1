@@ -25,7 +25,7 @@ $global:PoshHgSettings = New-Object PSObject -Property @{
     WorkingBackgroundColor    = $Host.UI.RawUI.BackgroundColor
     
     #Tag list
-    ShowTags                  = $true
+    ShowTags                  = $false
     BeforeTagText             = ' '
     TagForegroundColor        = [ConsoleColor]::DarkGray
     TagBackgroundColor        = $Host.UI.RawUI.BackgroundColor

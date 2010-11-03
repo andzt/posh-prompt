@@ -11,6 +11,6 @@ http://PoshHg.codeplex.com
 
 ...and add the following code to your Powershell profile (usually C:\Users\Username\Documents\WindowsPowershell\Profile.ps1)
 
-. path\to\posh-hg\profile.example.ps1
+. (Resolve-Path <path\to\profile.hg-prompt.ps1>)
 
-Alternatiely, you can copy the contents of the profile.example.ps1 file in to your profile.ps1
+Alternatively, you can copy the contents of the profile.hg-prompt.ps1 file in to your profile script

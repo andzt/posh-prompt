@@ -10,8 +10,28 @@ Import-Module .\posh-hg
 
 # Set up a simple prompt, adding the hg prompt parts inside hg repos
 function prompt {
-    Write-Host($pwd) -nonewline
+    $s = $global:PoshHgSettings
+    
+    if ($s.ShowUserLocationAsPrompt) {
+        $path = ""
+        $pathbits = ([string]$pwd).split("\", [System.StringSplitOptions]::RemoveEmptyEntries)
+        if($pathbits.length -eq 1) {
+            $path = $pathbits[0] + "\"
+        } else {
+            $path = $pathbits[$pathbits.length - 1]
+        }
         
+        $userLocation = '@ ' + $path
+        
+        if ($s.ShowUserLocationAsTitle) {
+            $Host.UI.RawUi.WindowTitle = $userLocation
+        }
+        
+        Write-Host($userLocation) -nonewline -foregroundcolor Green
+    } else {
+        Write-Host($pwd) -nonewline
+    }
+    
     # Mercurial Prompt
     $Global:HgStatus = Get-HgStatus
     Write-HgStatus $HgStatus

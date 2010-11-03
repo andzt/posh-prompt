@@ -1,4 +1,8 @@
 $global:PoshHgSettings = New-Object PSObject -Property @{
+    #Global settings
+    ShowUserLocationAsPrompt  = $true
+    ShowUserLocationAsTitle   = $false
+
     #Before prompt
     BeforeText                = ' ['
     BeforeForegroundColor     = [ConsoleColor]::Yellow

@@ -32,6 +32,14 @@ $global:PoshHgSettings = New-Object PSObject -Property @{
     TagSeparator              = ", "
     TagSeparatorColor         = [ConsoleColor]::White
     
+    #Status
+    StatusAdded               = [ConsoleColor]::Green
+    StatusModified            = [ConsoleColor]::Yellow
+    StatusDeleted             = [ConsoleColor]::Cyan
+    StatusUntracked           = [ConsoleColor]::Red
+    StatusMissing             = [ConsoleColor]::Magenta
+    StatusRenamed             = [ConsoleColor]::White
+    
     # MQ Integration
     ShowPatches                   = $false
     BeforePatchText               = ' patches: '

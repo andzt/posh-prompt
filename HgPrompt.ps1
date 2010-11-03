@@ -17,25 +17,25 @@ function Write-HgStatus($status = (get-hgStatus)) {
         Write-Host $status.Branch -NoNewline -BackgroundColor $branchBg -ForegroundColor $branchFg
         
         if($status.Added) {
-          Write-Host " +$($status.Added)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+          Write-Host " A$($status.Added)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusAdded
         }
         if($status.Modified) {
-          Write-Host " ~$($status.Modified)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+          Write-Host " M$($status.Modified)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusModified
         }
         if($status.Deleted) {
-          Write-Host " -$($status.Deleted)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+          Write-Host " D$($status.Deleted)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusDeleted
         }
         
         if ($status.Untracked) {
-          Write-Host " ?$($status.Untracked)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+          Write-Host " ?$($status.Untracked)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusUntracked
         }
         
         if($status.Missing) {
-           Write-Host " !$($status.Missing)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+           Write-Host " !$($status.Missing)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusMissing
         }
 
         if($status.Renamed) {
-           Write-Host " ^$($status.Renamed)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+           Write-Host " R$($status.Renamed)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusRenamed
         }
 
         if($s.ShowTags -and $status.Tags.Length) {

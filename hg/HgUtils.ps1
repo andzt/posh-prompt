@@ -1,34 +1,12 @@
-function isHgDirectory() {
-  if(test-path ".hg") {
-    return $true;
-  }
-  
-  if(test-path ".git") {
-    return $false; #short circuit if git repo
-  }
-  
-  # Test within parent dirs
-  $checkIn = (Get-Item .).parent
-  while ($checkIn -ne $NULL) {
-      $pathToTest = $checkIn.fullname + '/.hg'
-      if ((Test-Path $pathToTest) -eq $TRUE) {
-          return $true
-      } else {
-          $checkIn = $checkIn.parent
-      }
-    }
-    
-    return $false
-}
 
 function Get-HgStatus {
-  if(isHgDirectory) {
+  if(IsHgOrGitDirectory -eq 2) {
     $untracked = 0
     $added = 0
     $modified = 0
     $deleted = 0
     $missing = 0
-	$renamed = 0
+    $renamed = 0
     $tags = @()
     $commit = ""
     $behind = $false
@@ -59,7 +37,7 @@ function Get-HgStatus {
                "Modified" = $modified;
                "Deleted" = $deleted;
                "Missing" = $missing;
-			   "Renamed" = $renamed;
+               "Renamed" = $renamed;
                "Tags" = $tags;
                "Commit" = $commit;
                "Behind" = $behind;

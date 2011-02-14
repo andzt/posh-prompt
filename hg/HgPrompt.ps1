@@ -1,5 +1,3 @@
-# For backwards compatibility
-$global:HgPromptSettings = $global:PoshPromptSettings
 
 function Write-HgStatus($status = (get-hgStatus)) {
     if ($status) {

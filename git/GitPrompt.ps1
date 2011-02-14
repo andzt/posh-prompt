@@ -19,13 +19,13 @@ function Write-GitStatus($status) {
             write-host $s.BeforeIndexText -NoNewLine -BackgroundColor $s.BeforeIndexBackgroundColor -ForegroundColor $s.BeforeIndexForegroundColor
             
             if($s.ShowStatusWhenZero -or $status.Index.Added) {
-              Write-Host " +$($status.Index.Added.Count)" -NoNewline -BackgroundColor $s.IndexBackgroundColor -ForegroundColor $s.IndexForegroundColor
+              Write-Host " $($s.StatusAddedText)$($status.Index.Added.Count)" -NoNewline -BackgroundColor $s.IndexBackgroundColor -ForegroundColor $s.StatusAdded
             }
             if($s.ShowStatusWhenZero -or $status.Index.Modified) {
-              Write-Host " ~$($status.Index.Modified.Count)" -NoNewline -BackgroundColor $s.IndexBackgroundColor -ForegroundColor $s.IndexForegroundColor
+              Write-Host " $($s.StatusModifiedText)$($status.Index.Modified.Count)" -NoNewline -BackgroundColor $s.IndexBackgroundColor -ForegroundColor $s.StatusModified
             }
             if($s.ShowStatusWhenZero -or $status.Index.Deleted) {
-              Write-Host " -$($status.Index.Deleted.Count)" -NoNewline -BackgroundColor $s.IndexBackgroundColor -ForegroundColor $s.IndexForegroundColor
+              Write-Host " $($s.StatusDeletedText)$($status.Index.Deleted.Count)" -NoNewline -BackgroundColor $s.IndexBackgroundColor -ForegroundColor $s.StatusDeleted
             }
 
             if ($status.Index.Unmerged) {
@@ -39,13 +39,13 @@ function Write-GitStatus($status) {
         
         if($s.EnableFileStatus -and $status.HasWorking) {
             if($s.ShowStatusWhenZero -or $status.Working.Added) {
-              Write-Host " +$($status.Working.Added.Count)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+              Write-Host " $($s.StatusAddedText)$($status.Working.Added.Count)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusAdded
             }
             if($s.ShowStatusWhenZero -or $status.Working.Modified) {
-              Write-Host " ~$($status.Working.Modified.Count)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+              Write-Host " $($s.StatusModifiedText)$($status.Working.Modified.Count)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusModified
             }
             if($s.ShowStatusWhenZero -or $status.Working.Deleted) {
-              Write-Host " -$($status.Working.Deleted.Count)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.WorkingForegroundColor
+              Write-Host " $($s.StatusDeletedText)$($status.Working.Deleted.Count)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusDeleted
             }
 
             if ($status.Working.Unmerged) {
@@ -54,7 +54,7 @@ function Write-GitStatus($status) {
         }
         
         if ($status.HasUntracked) {
-            Write-Host $s.UntrackedText -NoNewline -BackgroundColor $s.UntrackedBackgroundColor -ForegroundColor $s.UntrackedForegroundColor
+            Write-Host $s.UntrackedText -NoNewline -BackgroundColor $s.UntrackedBackgroundColor -ForegroundColor $s.StatusUntracked
         }
         
         Write-Host $s.AfterText -NoNewline -BackgroundColor $s.AfterBackgroundColor -ForegroundColor $s.AfterForegroundColor

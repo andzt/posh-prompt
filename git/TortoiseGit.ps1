@@ -1,9 +1,4 @@
 # TortoiseGit 
-
-$Global:TortoiseGitSettings = new-object PSObject -Property @{
-  TortoiseGitPath = "C:\Program Files\TortoiseGit\bin\TortoiseProc.exe"
-}
-
 function tgit {
    if($args) {
     if($args[0] -eq "help") {
@@ -20,8 +15,8 @@ function tgit {
     if($args.length -gt 1) {
       $args[1..$args.length] | % { $newArgs += $_ }
     }
-      
-    & $Global:TortoiseGitSettings.TortoiseGitPath $newArgs
+    
+    & $Global:PoshPromptSettings.TortoiseGitPath $newArgs
   }
 }
 

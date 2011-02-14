@@ -1,58 +1,15 @@
 # Inspired by Mark Embling
 # http://www.markembling.info/view/my-ideal-powershell-prompt-with-git-integration
 
-$global:GitPromptSettings = New-Object PSObject -Property @{
-    DefaultForegroundColor    = $Host.UI.RawUI.ForegroundColor
-
-    BeforeText                = ' ['
-    BeforeForegroundColor     = [ConsoleColor]::Yellow
-    BeforeBackgroundColor     = $Host.UI.RawUI.BackgroundColor    
-    DelimText                 = ' |'
-    DelimForegroundColor      = [ConsoleColor]::Yellow
-    DelimBackgroundColor      = $Host.UI.RawUI.BackgroundColor
-    
-    AfterText                 = ']'
-    AfterForegroundColor      = [ConsoleColor]::Yellow
-    AfterBackgroundColor      = $Host.UI.RawUI.BackgroundColor
-    
-    Branch1ForegroundColor    = [ConsoleColor]::Cyan
-    Branch1BackgroundColor    = $Host.UI.RawUI.BackgroundColor
-    Branch2ForegroundColor    = [ConsoleColor]::Red
-    Branch2BackgroundColor    = $Host.UI.RawUI.BackgroundColor
-    
-    BeforeIndexText           = ""
-    BeforeIndexForegroundColor= [ConsoleColor]::Blue
-    BeforeIndexBackgroundColor= $Host.UI.RawUI.BackgroundColor
-    
-    IndexForegroundColor      = [ConsoleColor]::Blue
-    IndexBackgroundColor      = $Host.UI.RawUI.BackgroundColor
-    
-    WorkingForegroundColor    = [ConsoleColor]::Yellow
-    WorkingBackgroundColor    = $Host.UI.RawUI.BackgroundColor
-    
-    UntrackedText             = ' !'
-    UntrackedForegroundColor  = [ConsoleColor]::Yellow
-    UntrackedBackgroundColor  = $Host.UI.RawUI.BackgroundColor
-    
-    ShowStatusWhenZero        = $true
-    
-    AutoRefreshIndex          = $true
-
-    EnablePromptStatus        = $true
-    EnableFileStatus          = $true
-
-    Debug                     = $false
-}
-
 function Write-GitStatus($status) {
-    $s = $global:GitPromptSettings
+    $s = $global:PoshPromptSettings
     if ($status -and $s) {
         $currentBranch = $status.Branch
         
         Write-Host $s.BeforeText -NoNewline -BackgroundColor $s.BeforeBackgroundColor -ForegroundColor $s.BeforeForegroundColor
         if ($status.AheadBy -eq 0) {
             # We are not ahead of origin
-            Write-Host $currentBranch -NoNewline -BackgroundColor $s.Branch1BackgroundColor -ForegroundColor $s.Branch1ForegroundColor
+            Write-Host $currentBranch -NoNewline -BackgroundColor $s.BranchBackgroundColor -ForegroundColor $s.BranchForegroundColor
         } else {
             # We are ahead of origin
             Write-Host $currentBranch -NoNewline -BackgroundColor $s.Branch2BackgroundColor -ForegroundColor $s.Branch2ForegroundColor

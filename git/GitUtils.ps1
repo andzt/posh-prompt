@@ -69,7 +69,7 @@ function Get-GitBranch($gitDir = $(Get-GitDirectory), [Diagnostics.Stopwatch]$sw
 }
 
 function Get-GitStatus($gitDir = (Get-GitDirectory)) {
-    $settings = $Global:GitPromptSettings
+    $settings = $Global:PoshPromptSettings
     $enabled = (-not $settings) -or $settings.EnablePromptStatus
     if ($enabled -and $gitDir)
     {

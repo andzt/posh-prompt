@@ -1,10 +1,6 @@
 # Initial implementation by Jeremy Skinner
 # http://www.jeremyskinner.co.uk/2010/03/07/using-git-with-windows-powershell/
 
-$global:GitTabSettings = New-Object PSObject -Property @{
-    AllCommands = $false
-}
-
 $global:ops = @{
     remote = 'add','rename','rm','set-head','show','prune','update'
     stash = 'list','show','drop','pop','apply','branch','save','clear','create'
@@ -18,7 +14,7 @@ function script:gitCmdOperations($command, $filter) {
 
 function script:gitCommands($filter, $includeAliases) {
     $cmdList = @()
-    if (-not $global:GitTabSettings.AllCommands) {
+    if (-not $global:PoshPromptSettings.AllCommands) {
         $cmdList += git help |
             foreach { if($_ -match '^   (\S+) (.*)') { $matches[1] } } |
             where { $_ -like "$filter*" }

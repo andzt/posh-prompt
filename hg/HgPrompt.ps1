@@ -15,25 +15,25 @@ function Write-HgStatus($status = (get-hgStatus)) {
         Write-Host $status.Branch -NoNewline -BackgroundColor $branchBg -ForegroundColor $branchFg
         
         if($status.Added) {
-          Write-Host " A$($status.Added)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusAdded
+          Write-Host " $($s.StatusAddedText)$($status.Added)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusAdded
         }
         if($status.Modified) {
-          Write-Host " M$($status.Modified)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusModified
+          Write-Host " $($s.StatusModifiedText)$($status.Modified)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusModified
         }
         if($status.Deleted) {
-          Write-Host " D$($status.Deleted)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusDeleted
+          Write-Host " $($s.StatusDeletedText)$($status.Deleted)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusDeleted
         }
         
         if ($status.Untracked) {
-          Write-Host " ?$($status.Untracked)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusUntracked
+          Write-Host " $($s.StatusUntrackedText)$($status.Untracked)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusUntracked
         }
         
         if($status.Missing) {
-           Write-Host " !$($status.Missing)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusMissing
+           Write-Host " $($s.StatusMissingText)$($status.Missing)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusMissing
         }
 
         if($status.Renamed) {
-           Write-Host " R$($status.Renamed)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusRenamed
+           Write-Host " $($s.StatusRenamedText)$($status.Renamed)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusRenamed
         }
 
         if($s.ShowTags -and $status.Tags.Length) {

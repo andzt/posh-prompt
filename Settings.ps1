@@ -64,6 +64,13 @@ $global:PoshPromptSettings = New-Object PSObject -Property @{
     TagSeparatorColor          = [ConsoleColor]::White
     
     #Status
+    StatusAddedText            = 'A'
+    StatusModifiedText         = 'M'
+    StatusDeletedText          = 'D'
+    StatusUntrackedText        = '?'
+    StatusMissingText          = '!'
+    StatusRenamedText          = 'R'
+    
     StatusAdded                = [ConsoleColor]::Green
     StatusModified             = [ConsoleColor]::Yellow
     StatusDeleted              = [ConsoleColor]::Cyan

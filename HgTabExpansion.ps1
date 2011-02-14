@@ -36,10 +36,10 @@ function HgTabExpansion($lastBlock) {
       hgFiles $matches[1] '\?'
     }
     
-    #handles hgtk help <cmd>
-    #handles hgtk <cmd>
-    'hgtk (help )?(\S*)$' {
-      hgtkCommands($matches[2]);
+    #handles thg help <cmd>
+    #handles thg <cmd>
+    'thg (help )?(\S*)$' {    
+      thgCommands($matches[2]);
     }
     
     # handles hg diff <path>
@@ -149,9 +149,9 @@ function hgOptions($cmd, $filter) {
 	$optList | sort
 }
 
-function hgtkCommands($filter) {
+function thgCommands($filter) {
   $cmdList = @()
-  $output = hgtk help
+  $output = thg help
   foreach($line in $output) {
     if($line -match '^ (\S+) (.*)') {
       $cmd = $matches[1]

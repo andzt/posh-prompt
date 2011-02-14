@@ -14,7 +14,7 @@ Usage
 -----
 
 See `profile.posh-prompt.ps1` as to how you can integrate the tab completion and/or hg/git prompt into your own profile.
-Prompt formatting, among other things, can be customized using `$PromptSettings`, `$TabSettings` and `$TortoiseSettings`.
+Prompt formatting, among other things, can be customized using `$PoshPromptSettings`, `$PoshTabSettings` and `$PoshTortoiseSettings`.
 
 Installing
 ----------

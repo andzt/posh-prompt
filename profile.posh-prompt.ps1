@@ -40,7 +40,7 @@ function prompt {
     #  0: Not a repository
     #  1: Git repository
     #  2: Mercurial repository
-    $folderType = 2
+    $folderType = IsHgOrGitDirectory
 
     switch ($folderType) {
     default {}
@@ -58,7 +58,7 @@ function prompt {
         Write-HgStatus $HgStatus
       }
     }
-    
+
     return "> "
 }
 

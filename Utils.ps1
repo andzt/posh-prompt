@@ -1,5 +1,38 @@
 # General Utility Functions
 
+# Check current folder type
+#  0: Not a repository
+#  1: Git repository
+#  2: Mercurial repository
+#
+# Note: Treats Mercurial repositories with in-tree git directory 
+#       as normal Mercurial repositories
+function IsHgOrGitDirectory {
+  if(test-path ".hg") {
+    return 2;
+  }
+  
+  if(test-path ".git") {
+    return 1;
+  }
+  
+  # Test within parent dirs
+  $checkIn = (Get-Item .).parent
+  while ($checkIn -ne $NULL) {
+      $hgPathToTest = $checkIn.fullname + '/.hg'
+      $gitPathToTest = $checkIn.fullname + '/.git'
+      if ((Test-Path $hgPathToTest) -eq $TRUE) {
+          return 2;
+      } elseif ((Test-Path $gitPathToTest) -eq $TRUE) {
+          return 1;
+      } else {
+          $checkIn = $checkIn.parent
+      }
+    }
+    
+    return 0;
+}
+
 function Coalesce-Args {
     $result = $null
     foreach($arg in $args) {

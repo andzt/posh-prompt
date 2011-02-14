@@ -10,7 +10,7 @@ Import-Module .\posh-prompt
 
 # Set up a simple prompt, adding the hg prompt parts inside hg repos
 function prompt {
-    $s = $global:PoshHgSettings
+    $s = $global:PoshPromptSettings
     
     if ($s.ShowUserLocationAsPrompt) {
         $path = ""

@@ -106,7 +106,7 @@ function PopulateHgCommands() {
      }
   }
 
-  if($global:PoshHgSettings.ShowPatches) {
+  if($global:PoshPromptSettings.ShowPatches) {
     # MQ integration must be explicitly enabled as the user may not have the extension
     $hgCommands += (hg help mq) | % {
       if($_ -match '^ (\S+) (.*)') {

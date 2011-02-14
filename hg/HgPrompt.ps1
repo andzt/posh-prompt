@@ -1,9 +1,9 @@
 # For backwards compatibility
-$global:HgPromptSettings = $global:PoshHgSettings
+$global:HgPromptSettings = $global:PoshPromptSettings
 
 function Write-HgStatus($status = (get-hgStatus)) {
     if ($status) {
-        $s = $global:PoshHgSettings
+        $s = $global:PoshPromptSettings
        
         $branchFg = $s.BranchForegroundColor
         $branchBg = $s.BranchBackgroundColor

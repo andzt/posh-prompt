@@ -1,4 +1,4 @@
-$global:PoshHgSettings = New-Object PSObject -Property @{
+$global:PoshPromptSettings = New-Object PSObject -Property @{
     #Global settings
     ShowUserLocationAsPrompt  = $true
     ShowUserLocationAsTitle   = $false

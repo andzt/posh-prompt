@@ -1,13 +1,16 @@
 param([switch]$WhatIf = $false)
 
 if($PSVersionTable.PSVersion.Major -lt 2) {
-    Write-Warning "posh-git requires PowerShell 2.0 or better; you have version $($Host.Version)."
+    Write-Warning "posh-prompt requires PowerShell 2.0 or better; you have version $($Host.Version)."
     return
 }
 
 if(!(Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Warning 'Could not find git command. Please create a git alias or add %ProgramFiles%\Git\cmd to PATH.'
-    return
+}
+
+if(!(Get-Command hg -ErrorAction SilentlyContinue)) {
+    Write-Warning 'Could not find hg command. Please create a hg alias or add %ProgramFiles%\Hg\cmd to PATH.'
 }
 
 $installDir = Split-Path $MyInvocation.MyCommand.Path -Parent
@@ -36,20 +39,20 @@ function Get-FileEncoding($Path) {
     }
 }
 
-$profileLine = ". $installDir\profile.example.ps1"
+$profileLine = ". (Resolve-Path $installDir\profile.posh-prompt.ps1)"
 if(Select-String -Path $PROFILE -Pattern $profileLine -Quiet -SimpleMatch) {
-    Write-Host "It seems posh-git is already installed..."
+    Write-Host "It seems posh-prompt is already installed..."
     return
 }
 
-Write-Host "Adding posh-git to profile..."
+Write-Host "Adding posh-prompt to profile..."
 @"
 
-# Load posh-git example profile
+# Load posh-prompt example profile
 $profileLine
 
 "@ | Out-File $PROFILE -Append -WhatIf:$WhatIf -Encoding (Get-FileEncoding $PROFILE)
 
-Write-Host 'posh-git sucessfully installed!'
+Write-Host 'posh-prompt sucessfully installed!'
 Write-Host 'Please reload your profile for the changes to take effect:'
 Write-Host '    . $PROFILE'

@@ -1,5 +1,5 @@
 Push-Location $psScriptRoot
-.\git\CheckVersion.ps1 > $null
+.\CheckVersion.ps1 > $null
 
 . ./Settings.ps1
 . ./git/GitUtils.ps1

@@ -5,7 +5,7 @@ $global:PoshPromptSettings = New-Object PSObject -Property @{
     # Global settings
     ShowUserLocationAsPrompt   = $true
     ShowUserLocationAsTitle    = $false
-    ShowStatusWhenZero         = $true
+    ShowStatusWhenZero         = $false
     EnablePromptStatus         = $true
     EnableFileStatus           = $true
     AutoRefreshIndex           = $true

@@ -14,13 +14,13 @@ function Write-HgStatus($status = (get-hgStatus)) {
         Write-Host $s.BeforeText -NoNewline -BackgroundColor $s.BeforeBackgroundColor -ForegroundColor $s.BeforeForegroundColor
         Write-Host $status.Branch -NoNewline -BackgroundColor $branchBg -ForegroundColor $branchFg
         
-        if($status.Added) {
+        if($s.ShowStatusWhenZero -or $status.Added) {
           Write-Host " $($s.StatusAddedText)$($status.Added)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusAdded
         }
-        if($status.Modified) {
+        if($s.ShowStatusWhenZero -or $status.Modified) {
           Write-Host " $($s.StatusModifiedText)$($status.Modified)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusModified
         }
-        if($status.Deleted) {
+        if($s.ShowStatusWhenZero -or $status.Deleted) {
           Write-Host " $($s.StatusDeletedText)$($status.Deleted)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusDeleted
         }
         

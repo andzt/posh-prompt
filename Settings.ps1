@@ -35,8 +35,10 @@ $global:PoshPromptSettings = New-Object PSObject -Property @{
     BranchForegroundColor      = [ConsoleColor]::Cyan
     BranchBackgroundColor      = $Host.UI.RawUI.BackgroundColor
     # Current branch when not updated
-    Branch2ForegroundColor     = [ConsoleColor]::Red
-    Branch2BackgroundColor     = $Host.UI.RawUI.BackgroundColor
+    BranchAheadForegroundColor  = [ConsoleColor]::Green
+    BranchAheadBackgroundColor  = $Host.UI.RawUI.BackgroundColor
+    BranchBehindForegroundColor = [ConsoleColor]::Red
+    BranchBehindBackgroundColor = $Host.UI.RawUI.BackgroundColor
     
     # Index
     BeforeIndexText            = ""

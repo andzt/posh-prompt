@@ -8,8 +8,9 @@ Import-Module .\posh-prompt
 # Import-Module posh-hg
 
 
-# Set up a simple prompt, adding the hg prompt parts inside hg repos
+# Set up a simple prompt, adding the hg/git prompt parts inside hg/git repos
 function prompt {
+    $realLASTEXITCODE = $LASTEXITCODE
     $s = $global:PoshPromptSettings
     
     # Reset color, which can be messed up by Enable-GitColors
@@ -59,26 +60,28 @@ function prompt {
       }
     }
 
+    $LASTEXITCODE = $realLASTEXITCODE
     return "> "
 }
 
-if(-not (Test-Path Function:\DefaultTabExpansion)) {
-    Rename-Item Function:\TabExpansion DefaultTabExpansion
-}
+if(Test-Path Function:\TabExpansion) {
+    $teBackup = 'posh-prompt_DefaultTabExpansion'
+    if(!(Test-Path Function:\$teBackup)) {
+        Rename-Item Function:\TabExpansion $teBackup
+    }
 
-# Set up tab expansion and include hg & git expansions
-function TabExpansion($line, $lastWord) {
-    $lastBlock = [regex]::Split($line, '[|;]')[-1]
-    
-    switch -regex ($lastBlock) {
-        # mercurial and tortoisehg tab expansion
-        '(hg|thg) (.*)' { HgTabExpansion($lastBlock) }
-        # git tab expansion for all git-related commands
-        'git (.*)' { GitTabExpansion($lastBlock) }
-        # Fall back on existing tab expansion
-        default { DefaultTabExpansion $line $lastWord }
+    # Set up tab expansion and include hg & git expansions
+    function TabExpansion($line, $lastWord) {
+        $lastBlock = [regex]::Split($line, '[|;]')[-1].TrimStart()
+        switch -regex ($lastBlock) {
+            # Execute Mercurial and TortoiseHG tab expansion
+            '(hg|thg) (.*)' { HgTabExpansion($lastBlock) }
+            # Execute git tab completion for all git-related commands
+            "$(Get-GitAliasPattern) (.*)" { GitTabExpansion($lastBlock) }
+            # Fall back on existing tab expansion
+            default { & $teBackup $line $lastWord }
+        }
     }
 }
-
 
 Pop-Location

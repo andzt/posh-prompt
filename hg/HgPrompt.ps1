@@ -15,33 +15,42 @@ function Write-HgStatus($status = (get-hgStatus)) {
         Write-Host $status.Branch -NoNewline -BackgroundColor $branchBg -ForegroundColor $branchFg
         
         if($s.ShowStatusWhenZero -or $status.Added) {
-          Write-Host " $($s.StatusAddedText)$($status.Added)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusAdded
+          Write-Host " $($s.StatusAddedText)$($status.Added)" -NoNewline -BackgroundColor $s.AddedBackgroundColor -ForegroundColor $s.StatusAdded
         }
+        
         if($s.ShowStatusWhenZero -or $status.Modified) {
-          Write-Host " $($s.StatusModifiedText)$($status.Modified)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusModified
+          Write-Host " $($s.StatusModifiedText)$($status.Modified)" -NoNewline -BackgroundColor $s.ModifiedBackgroundColor -ForegroundColor $s.StatusModified
         }
+        
         if($s.ShowStatusWhenZero -or $status.Deleted) {
-          Write-Host " $($s.StatusDeletedText)$($status.Deleted)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusDeleted
+          Write-Host " $($s.StatusDeletedText)$($status.Deleted)" -NoNewline -BackgroundColor $s.DeletedBackgroundColor -ForegroundColor $s.StatusDeleted
         }
         
         if ($status.Untracked) {
-          Write-Host " $($s.StatusUntrackedText)$($status.Untracked)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusUntracked
+          Write-Host " $($s.StatusUntrackedText)$($status.Untracked)" -NoNewline -BackgroundColor $s.UntrackedBackgroundColor -ForegroundColor $s.StatusUntracked
         }
         
         if($status.Missing) {
-           Write-Host " $($s.StatusMissingText)$($status.Missing)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusMissing
+           Write-Host " $($s.StatusMissingText)$($status.Missing)" -NoNewline -BackgroundColor $s.MissingBackgroundColor -ForegroundColor $s.StatusMissing
         }
-
+        
         if($status.Renamed) {
-           Write-Host " $($s.StatusRenamedText)$($status.Renamed)" -NoNewline -BackgroundColor $s.WorkingBackgroundColor -ForegroundColor $s.StatusRenamed
+           Write-Host " $($s.StatusRenamedText)$($status.Renamed)" -NoNewline -BackgroundColor $s.RenamedBackgroundColor -ForegroundColor $s.StatusRenamed
         }
-
+        
         if($s.ShowTags -and $status.Tags.Length) {
           write-host $s.BeforeTagText -NoNewLine
-          
+         
           $tagCounter=0
           $status.Tags | % {
-              write-host $_ -NoNewLine -ForegroundColor $s.TagForegroundColor -BackgroundColor $s.TagBackgroundColor 
+            $color = $s.TagForegroundColor
+            
+            if($_.Trim() -eq $status.ActiveBookmark) {
+                $color = $s.BranchForegroundColor
+            }
+                
+              write-host $_ -NoNewLine -ForegroundColor $color -BackgroundColor $s.TagBackgroundColor 
+          
               if($tagCounter -lt ($status.Tags.Length -1)) {
                 write-host ", " -NoNewLine -ForegroundColor $s.TagSeparatorColor -BackgroundColor $s.TagBackgroundColor
               }

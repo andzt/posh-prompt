@@ -57,6 +57,12 @@ $global:PoshPromptSettings = New-Object PSObject -Property @{
     UntrackedForegroundColor   = [ConsoleColor]::Yellow
     UntrackedBackgroundColor   = $Host.UI.RawUI.BackgroundColor
     
+    AddedBackgroundColor       = $Host.UI.RawUI.BackgroundColor
+    ModifiedBackgroundColor    = $Host.UI.RawUI.BackgroundColor
+    DeletedBackgroundColor     = $Host.UI.RawUI.BackgroundColor
+    MissingBackgroundColor     = $Host.UI.RawUI.BackgroundColor
+    RenamedBackgroundColor     = $Host.UI.RawUI.BackgroundColor
+    
     #Tag list
     ShowTags                   = $false
     BeforeTagText              = ' '

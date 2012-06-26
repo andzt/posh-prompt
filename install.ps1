@@ -5,22 +5,24 @@ if($PSVersionTable.PSVersion.Major -lt 2) {
     return
 }
 
+if(!(Test-Path $PROFILE)) {
+    Write-Host "Creating PowerShell profile...`n$PROFILE"
+    New-Item $PROFILE -Force -Type File -ErrorAction Stop -WhatIf:$WhatIf > $null
+}
+
 if(!(Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Warning 'Could not find git command. Please create a git alias or add %ProgramFiles%\Git\cmd to PATH.'
+	return
 }
 
 if(!(Get-Command hg -ErrorAction SilentlyContinue)) {
     Write-Warning 'Could not find hg command. Please create a hg alias or add %ProgramFiles%\Hg\cmd to PATH.'
+	return
 }
 
 $installDir = Split-Path $MyInvocation.MyCommand.Path -Parent
 if(!(. (Join-Path $installDir "CheckVersion.ps1"))) {
     return
-}
-
-if(!(Test-Path $PROFILE)) {
-    Write-Host "Creating PowerShell profile...`n$PROFILE"
-    New-Item $PROFILE -Force -Type File -ErrorAction Stop -WhatIf:$WhatIf > $null
 }
 
 # Adapted from http://www.west-wind.com/Weblog/posts/197245.aspx

@@ -9,18 +9,19 @@ $global:PoshPromptSettings = New-Object PSObject -Property @{
     EnablePromptStatus         = $true
     EnableFileStatus           = $true
     AutoRefreshIndex           = $true
-    
+    RepositoriesInWhichToDisableFileStatus = @( ) # Array of repository paths
+
     # Debug
     Debug                      = $false
-    
+
     # Tab expansion
     AllCommands                = $false
-    
+
     # Before prompt
     BeforeText                 = ' ['
     BeforeForegroundColor      = [ConsoleColor]::Yellow
     BeforeBackgroundColor      = $Host.UI.RawUI.BackgroundColor
-    
+
     # Delim
     DelimText                  = ' |'
     DelimForegroundColor       = [ConsoleColor]::Yellow
@@ -39,6 +40,8 @@ $global:PoshPromptSettings = New-Object PSObject -Property @{
     BranchAheadBackgroundColor  = $Host.UI.RawUI.BackgroundColor
     BranchBehindForegroundColor = [ConsoleColor]::Red
     BranchBehindBackgroundColor = $Host.UI.RawUI.BackgroundColor
+    BranchBehindAndAheadForegroundColor = [ConsoleColor]::Yellow
+    BranchBehindAndAheadBackgroundColor = $Host.UI.RawUI.BackgroundColor
     
     # Index
     BeforeIndexText            = ""

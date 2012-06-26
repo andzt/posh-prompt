@@ -1,3 +1,5 @@
+if (Get-Module posh-prompt) { return }
+
 Push-Location $psScriptRoot
 .\CheckVersion.ps1 > $null
 
@@ -12,18 +14,23 @@ Push-Location $psScriptRoot
 . ./hg/HgTabExpansion.ps1
 Pop-Location
 
+if (!$Env:HOME) { $Env:HOME = "$Env:HOMEDRIVE$Env:HOMEPATH" }
+if (!$Env:HOME) { $Env:HOME = "$Env:USERPROFILE" }
+
 Export-ModuleMember -Function @(
   'Write-GitStatus', 
   'Get-GitStatus', 
   'Enable-GitColors', 
   'Get-GitDirectory',
   'GitTabExpansion',
-  'Get-GitAliasPattern'
-  'tgit'
+  'Get-AliasPattern',
+  'Start-SshAgent',
+  'Stop-SshAgent',
+  'Add-SshKey',
+  'tgit',
   'Write-HgStatus',
   'Get-HgStatus',
   'HgTabExpansion',
   'Get-MqPatches',
   'PopulateHgCommands',
-  'IsHgOrGitDirectory'
- )
+  'IsHgOrGitDirectory')

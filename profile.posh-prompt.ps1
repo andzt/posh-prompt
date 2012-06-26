@@ -49,8 +49,7 @@ function prompt {
     # Git prompt
     1 {
         Enable-GitColors
-        $Global:GitStatus = Get-GitStatus
-        Write-GitStatus $GitStatus
+        Write-VcsStatus
       }
     
     # Mercurial Prompt
@@ -60,7 +59,7 @@ function prompt {
       }
     }
 
-    $LASTEXITCODE = $realLASTEXITCODE
+    $global:LASTEXITCODE = $realLASTEXITCODE
     return "> "
 }
 
@@ -76,8 +75,11 @@ if(Test-Path Function:\TabExpansion) {
         switch -regex ($lastBlock) {
             # Execute Mercurial and TortoiseHG tab expansion
             '(hg|thg) (.*)' { HgTabExpansion($lastBlock) }
+            
             # Execute git tab completion for all git-related commands
-            "$(Get-GitAliasPattern) (.*)" { GitTabExpansion($lastBlock) }
+            "^$(Get-AliasPattern git) (.*)" { GitTabExpansion $lastBlock }
+            "^$(Get-AliasPattern tgit) (.*)" { GitTabExpansion $lastBlock }
+            
             # Fall back on existing tab expansion
             default { & $teBackup $line $lastWord }
         }

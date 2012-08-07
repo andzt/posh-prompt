@@ -51,5 +51,6 @@ $tortoiseGitCommands = @(
 "subsync",
 "reflog",
 "refbrowse",
-"sync"
+"sync",
+"repostatus"
 ) | sort

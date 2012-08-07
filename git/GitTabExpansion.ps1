@@ -42,16 +42,23 @@ function script:gitRemotes($filter) {
 }
 
 function script:gitBranches($filter, $includeHEAD = $false) {
+    $prefix = $null
     if ($filter -match "^(?<from>\S*\.{2,3})(?<to>.*)") {
         $prefix = $matches['from']
         $filter = $matches['to']
     }
-    $branches = @(git branch | foreach { if($_ -match "^\*?\s*(?<ref>.*)") { $matches['ref'] } }) +
-                @(git branch -r | foreach { if($_ -match "^  (?<ref>\S+)(?: -> .+)?") { $matches['ref'] } }) +
+    $branches = @(git branch --no-color | foreach { if($_ -match "^\*?\s*(?<ref>.*)") { $matches['ref'] } }) +
+                @(git branch --no-color -r | foreach { if($_ -match "^  (?<ref>\S+)(?: -> .+)?") { $matches['ref'] } }) +
                 @(if ($includeHEAD) { 'HEAD','FETCH_HEAD','ORIG_HEAD','MERGE_HEAD' })
     $branches |
         where { $_ -ne '(no branch)' -and $_ -like "$filter*" } |
         foreach { $prefix + $_ }
+}
+
+function script:gitRemoteBranches($remote, $ref, $filter) {
+    git branch --no-color -r |
+        where { $_ -like "  $remote/$filter*" } |
+        foreach { $ref + ($_ -replace "  $remote/","") }
 }
 
 function script:gitStashes($filter) {
@@ -151,9 +158,14 @@ function GitTabExpansion($lastBlock) {
             gitCommands $matches['cmd'] $FALSE
         }
 
+        # Handles git push remote <ref>:<branch>
+        "^push.* (?<remote>\S+) (?<ref>[^\s\:]*\:)(?<branch>\S*)$" {
+            gitRemoteBranches $matches['remote'] $matches['ref'] $matches['branch']
+        }
+
         # Handles git push remote <branch>
         # Handles git pull remote <branch>
-        "^(?:push|pull).* (?:\S+) (?<branch>\S*)$" {
+        "^(?:push|pull).* (?:\S+) (?<branch>[^\s\:]*)$" {
             gitBranches $matches['branch']
         }
 

@@ -15,11 +15,6 @@ if(!(Get-Command git -ErrorAction SilentlyContinue)) {
 	return
 }
 
-if(!(Get-Command hg -ErrorAction SilentlyContinue)) {
-    Write-Warning 'Could not find hg command. Please create a hg alias or add %ProgramFiles%\Hg\cmd to PATH.'
-	return
-}
-
 $installDir = Split-Path $MyInvocation.MyCommand.Path -Parent
 if(!(. (Join-Path $installDir "CheckVersion.ps1"))) {
     return
